@@ -63,35 +63,25 @@ func (dr *DocumentReader) parseField(element Element) (string, Field, error) {
 }
 
 func (dr *DocumentReader) parseStringField() (string, *StringField, error) {
-	n, err := dr.parseString()
+	f := StringField{}
+
+	n, err := f.read(dr.r)
 	if err != nil {
 		return "", nil, err
 	}
 
-	v, err := dr.parseString()
-	if err != nil {
-		return "", nil, err
-	}
-
-	return n, &StringField{value: v}, nil
+	return n, &f, nil
 }
 
 func (dr *DocumentReader) parseInt64Field() (string, *Int64Field, error) {
-	n, err := dr.parseString()
+	f := Int64Field{}
+
+	n, err := f.read(dr.r)
 	if err != nil {
 		return "", nil, err
 	}
 
-	v, err := dr.parseInt64()
-	if err != nil {
-		return "", nil, err
-	}
-
-	return n, &Int64Field{value: v}, nil
-}
-
-func (dr *DocumentReader) parseString() (string, error) {
-	return dr.r.ReadString(0)
+	return n, &f, nil
 }
 
 func (dr *DocumentReader) parseType() (Element, error) {
@@ -104,10 +94,4 @@ func (dr *DocumentReader) parseUint32() (uint32, error) {
 	var data [4]byte
 	_, err := dr.r.Read(data[:])
 	return binary.LittleEndian.Uint32(data[:]), err
-}
-
-func (dr *DocumentReader) parseInt64() (int64, error) {
-	var data [4]byte
-	_, err := dr.r.Read(data[:])
-	return int64(binary.LittleEndian.Uint64(data[:])), err
 }
