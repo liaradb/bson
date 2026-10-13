@@ -2,10 +2,13 @@ package bson
 
 type Document struct {
 	size   uint32
-	fields []*Field[any]
+	fields map[string]Field
 }
 
-type Field[T any] struct {
-	name  string
-	value T
+type Field interface {
+	_field()
 }
+
+type field struct{}
+
+func (field) _field()

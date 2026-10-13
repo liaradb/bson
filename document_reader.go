@@ -27,7 +27,7 @@ func (dr *DocumentReader) Parse() (*Document, error) {
 		return nil, err
 	}
 
-	fields := make([]*Field[any], 0)
+	fields := make(map[string]Field)
 
 	for err != io.EOF {
 		t, err := dr.parseType()
@@ -35,12 +35,12 @@ func (dr *DocumentReader) Parse() (*Document, error) {
 			return nil, err
 		}
 
-		f, err := dr.parseField(t)
+		n, f, err := dr.parseField(t)
 		if err != nil {
 			return nil, err
 		}
 
-		fields = append(fields, f)
+		fields[n] = f
 	}
 
 	return &Document{
@@ -49,51 +49,45 @@ func (dr *DocumentReader) Parse() (*Document, error) {
 	}, nil
 }
 
-func (dr *DocumentReader) parseField(element Element) (*Field[any], error) {
+func (dr *DocumentReader) parseField(element Element) (string, Field, error) {
 	switch element {
-	case ElementNone:
-		return nil, io.EOF
 	case ElementString:
 		return dr.parseStringField()
 	case ElementInt64:
 		return dr.parseInt64Field()
+	case ElementNone:
+		return "", nil, io.EOF
 	default:
-		return nil, ErrUnknownElement
+		return "", nil, ErrUnknownElement
 	}
 }
 
-func (dr *DocumentReader) parseStringField() (*Field[any], error) {
+func (dr *DocumentReader) parseStringField() (string, *StringField, error) {
 	n, err := dr.parseString()
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
 
 	v, err := dr.parseString()
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
 
-	return &Field[any]{
-		name:  n,
-		value: v,
-	}, nil
+	return n, &StringField{value: v}, nil
 }
 
-func (dr *DocumentReader) parseInt64Field() (*Field[any], error) {
+func (dr *DocumentReader) parseInt64Field() (string, *Int64Field, error) {
 	n, err := dr.parseString()
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
 
 	v, err := dr.parseInt64()
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
 
-	return &Field[any]{
-		name:  n,
-		value: v,
-	}, nil
+	return n, &Int64Field{value: v}, nil
 }
 
 func (dr *DocumentReader) parseString() (string, error) {

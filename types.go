@@ -26,7 +26,7 @@ const (
 	ElementUnsignedByte1 Element = 8   // Boolean (true)
 	ElementDateTime      Element = 9   // UTC datetime. int64 is UTC milliseconds since the Unix epoch.
 	ElementNull          Element = 10  // value
-	ElementCstring       Element = 11  // cstring	Regular expression. See below for more information.
+	ElementRexExp        Element = 11  // Regular expression. See below for more information.
 	ElementDBPointer     Element = 12  // (byte*12)	DBPointer. Deprecated.
 	ElementCode          Element = 13  // JavaScript code
 	ElementSymbol        Element = 14  // Symbol. Deprecated.
