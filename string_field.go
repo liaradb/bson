@@ -7,6 +7,17 @@ type StringField struct {
 	value string
 }
 
+func ReadStringField(r *bufio.Reader) (string, *StringField, error) {
+	f := StringField{}
+
+	n, err := f.read(r)
+	if err != nil {
+		return "", nil, err
+	}
+
+	return n, &f, nil
+}
+
 func (f *StringField) Value() string {
 	return f.value
 }

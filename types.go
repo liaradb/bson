@@ -22,8 +22,7 @@ const (
 	ElementBinary        Element = 5   // Binary data
 	ElementUndefined     Element = 6   // (value). Deprecated.
 	ElementByte          Element = 7   // ObjectId
-	ElementUnsignedByte0 Element = 8   // Boolean (false)
-	ElementUnsignedByte1 Element = 8   // Boolean (true)
+	ElementBool          Element = 8   // Boolean
 	ElementDateTime      Element = 9   // UTC datetime. int64 is UTC milliseconds since the Unix epoch.
 	ElementNull          Element = 10  // value
 	ElementRexExp        Element = 11  // Regular expression. See below for more information.

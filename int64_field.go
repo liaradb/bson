@@ -11,6 +11,17 @@ type Int64Field struct {
 	value int64
 }
 
+func ReadInt64Field(r *bufio.Reader) (string, *Int64Field, error) {
+	f := Int64Field{}
+
+	n, err := f.read(r)
+	if err != nil {
+		return "", nil, err
+	}
+
+	return n, &f, nil
+}
+
 func (f *Int64Field) Value() int64 {
 	return f.value
 }

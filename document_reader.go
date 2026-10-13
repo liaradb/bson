@@ -55,36 +55,16 @@ func (dr *DocumentReader) Parse() (*Document, error) {
 func (dr *DocumentReader) parseField(element Element) (string, Field, error) {
 	switch element {
 	case ElementString:
-		return dr.parseStringField()
+		return ReadStringField(dr.r)
 	case ElementInt64:
-		return dr.parseInt64Field()
+		return ReadInt64Field(dr.r)
+	case ElementBool:
+		return ReadBoolield(dr.r)
 	case ElementNone:
 		return "", nil, io.EOF
 	default:
 		return "", nil, ErrUnknownElement
 	}
-}
-
-func (dr *DocumentReader) parseStringField() (string, *StringField, error) {
-	f := StringField{}
-
-	n, err := f.read(dr.r)
-	if err != nil {
-		return "", nil, err
-	}
-
-	return n, &f, nil
-}
-
-func (dr *DocumentReader) parseInt64Field() (string, *Int64Field, error) {
-	f := Int64Field{}
-
-	n, err := f.read(dr.r)
-	if err != nil {
-		return "", nil, err
-	}
-
-	return n, &f, nil
 }
 
 func (dr *DocumentReader) parseType() (Element, error) {
