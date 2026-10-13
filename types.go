@@ -21,7 +21,7 @@ const (
 	ElementArray         Element = 4   // Array. See below for more information.
 	ElementBinary        Element = 5   // Binary data
 	ElementUndefined     Element = 6   // (value). Deprecated.
-	ElementByte          Element = 7   // ObjectId
+	ElementObjectID      Element = 7   // ObjectId
 	ElementBool          Element = 8   // Boolean
 	ElementDateTime      Element = 9   // UTC datetime. int64 is UTC milliseconds since the Unix epoch.
 	ElementNull          Element = 10  // value
@@ -31,11 +31,11 @@ const (
 	ElementSymbol        Element = 14  // Symbol. Deprecated.
 	ElementCodeWithScope Element = 15  // JavaScript code with scope. Deprecated.
 	ElementInt32         Element = 16  // 32-bit integer
-	ElementUint64        Element = 17  // Timestamp. A special internal type used by MongoDB replication and sharding. The first 4 bytes are an increment and the second 4 bytes are a timestamp.
+	ElementTimestamp     Element = 17  // Timestamp. A special internal type used by MongoDB replication and sharding. The first 4 bytes are an increment and the second 4 bytes are a timestamp.
 	ElementInt64         Element = 18  // 64-bit integer
 	ElementDecimal128    Element = 19  // 128-bit decimal floating point
-	ElementMinkey        Element = -1  // A special type that compares lower than all other possible BSON element values.
-	ElementMaxkey        Element = 127 // A special type that compares higher than all other possible BSON element values.
+	ElementMinKey        Element = -1  // A special type that compares lower than all other possible BSON element values.
+	ElementMaxKey        Element = 127 // A special type that compares higher than all other possible BSON element values.
 )
 
 type SubType byte

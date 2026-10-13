@@ -42,7 +42,7 @@ func (f *Int64Field) read(r *bufio.Reader) (string, error) {
 }
 
 func (*Int64Field) readInt64(r io.Reader) (int64, error) {
-	var data [4]byte
+	var data [8]byte
 	_, err := r.Read(data[:])
 	return int64(binary.LittleEndian.Uint64(data[:])), err
 }

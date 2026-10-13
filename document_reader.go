@@ -58,6 +58,8 @@ func (dr *DocumentReader) parseField(element Element) (string, Field, error) {
 		return ReadStringField(dr.r)
 	case ElementInt64:
 		return ReadInt64Field(dr.r)
+	case ElementInt32:
+		return ReadInt32Field(dr.r)
 	case ElementBool:
 		return ReadBoolield(dr.r)
 	case ElementNone:
