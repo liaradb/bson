@@ -17,11 +17,15 @@ func (f *StringField) read(r *bufio.Reader) (string, error) {
 		return "", err
 	}
 
-	v, err := r.ReadString(0)
+	if _, err := f.readSize(r); err != nil {
+		return "", err
+	}
+
+	v, err := r.ReadBytes(0)
 	if err != nil {
 		return "", err
 	}
 
-	f.value = v
+	f.value = string(v[:len(v)-1])
 	return n, nil
 }

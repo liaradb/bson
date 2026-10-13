@@ -1,20 +1,18 @@
 package bson
 
-import "bufio"
+import "iter"
 
 type Document struct {
 	size   uint32
 	fields map[string]Field
 }
 
-type Field interface {
-	_field()
-}
-
-type field struct{}
-
-func (field) _field()
-
-func (field) readName(r *bufio.Reader) (string, error) {
-	return r.ReadString(0)
+func (d *Document) Fields() iter.Seq2[string, Field] {
+	return func(yield func(string, Field) bool) {
+		for n, f := range d.fields {
+			if !yield(n, f) {
+				return
+			}
+		}
+	}
 }

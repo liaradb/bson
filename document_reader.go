@@ -37,6 +37,9 @@ func (dr *DocumentReader) Parse() (*Document, error) {
 
 		n, f, err := dr.parseField(t)
 		if err != nil {
+			if err == io.EOF {
+				break
+			}
 			return nil, err
 		}
 
