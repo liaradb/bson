@@ -2,14 +2,28 @@ package bson
 
 import (
 	"bufio"
+	"errors"
 	"io"
 	"iter"
+)
+
+var (
+	ErrUnknownElement = errors.New("unknown element")
 )
 
 type Document struct {
 	field
 	size   uint32
 	fields map[string]Field
+}
+
+func Read(r io.Reader) (*Document, error) {
+	d := Document{}
+	if err := d.read(bufio.NewReader(r)); err != nil {
+		return nil, err
+	}
+
+	return &d, nil
 }
 
 func readDocument(r *bufio.Reader) (string, *Document, error) {
