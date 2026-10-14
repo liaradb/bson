@@ -32,11 +32,20 @@ func (f *String) read(r *bufio.Reader) (string, error) {
 		return "", err
 	}
 
+	v, err := f.readString(r)
+	if err != nil {
+		return "", err
+	}
+
+	f.value = v
+	return n, nil
+}
+
+func (*String) readString(r *bufio.Reader) (string, error) {
 	v, err := r.ReadBytes(0)
 	if err != nil {
 		return "", err
 	}
 
-	f.value = string(v[:len(v)-1])
-	return n, nil
+	return string(v[:len(v)-1]), nil
 }

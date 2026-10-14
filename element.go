@@ -61,15 +61,15 @@ func (e Element) readField(r *bufio.Reader) (string, Field, error) {
 	case ElementNull:
 		return readNull(r)
 	case ElementRegExp:
-		return "", nil, ErrUnknownElement
+		return readRegExp(r)
 	case ElementDBPointer:
 		return "", nil, ErrUnknownElement
 	case ElementCode:
-		return "", nil, ErrUnknownElement
+		return readCode(r)
 	case ElementSymbol:
-		return "", nil, ErrUnknownElement
+		return readSymbol(r)
 	case ElementCodeWithScope:
-		return "", nil, ErrUnknownElement
+		return readCodeWithScope(r)
 	case ElementInt32:
 		return readInt32(r)
 	case ElementTimestamp:
