@@ -35,36 +35,5 @@ func readField(r *bufio.Reader) (string, Field, error) {
 		return "", nil, err
 	}
 
-	return readElementField(e, r)
-}
-
-func readElement(r *bufio.Reader) (Element, error) {
-	var data [1]byte
-	_, err := r.Read(data[:])
-	return Element(data[0]), err
-}
-
-func readElementField(element Element, r *bufio.Reader) (string, Field, error) {
-	switch element {
-	case ElementDouble:
-		return readDouble(r)
-	case ElementString:
-		return readString(r)
-	case ElementDocument:
-		return readDocument(r)
-	case ElementArray:
-		return readArray(r)
-	case ElementBool:
-		return readBool(r)
-	case ElementDateTime:
-		return readDatetime(r)
-	case ElementInt32:
-		return readInt32(r)
-	case ElementInt64:
-		return readInt64(r)
-	case ElementNone:
-		return "", nil, io.EOF
-	default:
-		return "", nil, ErrUnknownElement
-	}
+	return e.readField(r)
 }

@@ -11,33 +11,6 @@ type (
 	Decimel128 [16]byte // 128-bit IEEE 754-2008 decimal floating point
 )
 
-type Element int8
-
-const (
-	ElementNone          Element = 0
-	ElementDouble        Element = 1   // 64-bit binary floating point
-	ElementString        Element = 2   // UTF-8 string
-	ElementDocument      Element = 3   // Embedded document
-	ElementArray         Element = 4   // Array. See below for more information.
-	ElementBinary        Element = 5   // Binary data
-	ElementUndefined     Element = 6   // (value). Deprecated.
-	ElementObjectID      Element = 7   // ObjectId
-	ElementBool          Element = 8   // Boolean
-	ElementDateTime      Element = 9   // UTC datetime. int64 is UTC milliseconds since the Unix epoch.
-	ElementNull          Element = 10  // value
-	ElementRexExp        Element = 11  // Regular expression. See below for more information.
-	ElementDBPointer     Element = 12  // (byte*12)	DBPointer. Deprecated.
-	ElementCode          Element = 13  // JavaScript code
-	ElementSymbol        Element = 14  // Symbol. Deprecated.
-	ElementCodeWithScope Element = 15  // JavaScript code with scope. Deprecated.
-	ElementInt32         Element = 16  // 32-bit integer
-	ElementTimestamp     Element = 17  // Timestamp. A special internal type used by MongoDB replication and sharding. The first 4 bytes are an increment and the second 4 bytes are a timestamp.
-	ElementInt64         Element = 18  // 64-bit integer
-	ElementDecimal128    Element = 19  // 128-bit decimal floating point
-	ElementMinKey        Element = -1  // A special type that compares lower than all other possible BSON element values.
-	ElementMaxKey        Element = 127 // A special type that compares higher than all other possible BSON element values.
-)
-
 type SubType byte
 
 const (
