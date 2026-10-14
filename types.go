@@ -1,14 +1,14 @@
 package bson
 
 type (
-	Byte         byte     // 8-bits
-	SignedByte   int8     // 8-bit, two's complement signed integer for which the value is n.
-	UnsignedByte byte     // 8-bit unsigned integer for which the value is n.
-	Int32        int32    // 32-bit signed integer, two's complement
-	Int64        int64    // 64-bit signed integer, two's complement
-	UInt64       uint64   // 64-bit unsigned integer
-	Double       float64  // 64-bit IEEE 754-2008 binary floating point
-	Decimel128   [16]byte // 128-bit IEEE 754-2008 decimal floating point
+	// Byte         byte     // 8-bits
+	// SignedByte   int8     // 8-bit, two's complement signed integer for which the value is n.
+	// UnsignedByte byte     // 8-bit unsigned integer for which the value is n.
+	// Int32        int32    // 32-bit signed integer, two's complement
+	// Int64        int64    // 64-bit signed integer, two's complement
+	// UInt64       uint64   // 64-bit unsigned integer
+	// Double       float64  // 64-bit IEEE 754-2008 binary floating point
+	Decimel128 [16]byte // 128-bit IEEE 754-2008 decimal floating point
 )
 
 type Element int8

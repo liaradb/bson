@@ -5,13 +5,13 @@ import (
 	"io"
 )
 
-type BoolField struct {
+type Bool struct {
 	field
 	value bool
 }
 
-func ReadBoolield(r *bufio.Reader) (string, *BoolField, error) {
-	f := BoolField{}
+func readBool(r *bufio.Reader) (string, *Bool, error) {
+	f := Bool{}
 
 	n, err := f.read(r)
 	if err != nil {
@@ -21,11 +21,11 @@ func ReadBoolield(r *bufio.Reader) (string, *BoolField, error) {
 	return n, &f, nil
 }
 
-func (f *BoolField) Value() bool {
+func (f *Bool) Value() bool {
 	return f.value
 }
 
-func (f *BoolField) read(r *bufio.Reader) (string, error) {
+func (f *Bool) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)
 	if err != nil {
 		return "", err
@@ -40,7 +40,7 @@ func (f *BoolField) read(r *bufio.Reader) (string, error) {
 	return n, nil
 }
 
-func (*BoolField) readBool(r io.Reader) (bool, error) {
+func (*Bool) readBool(r io.Reader) (bool, error) {
 	var data [1]byte
 	_, err := r.Read(data[:])
 	return data[0] != 0, err

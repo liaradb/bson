@@ -2,13 +2,13 @@ package bson
 
 import "bufio"
 
-type StringField struct {
+type String struct {
 	field
 	value string
 }
 
-func ReadStringField(r *bufio.Reader) (string, *StringField, error) {
-	f := StringField{}
+func readString(r *bufio.Reader) (string, *String, error) {
+	f := String{}
 
 	n, err := f.read(r)
 	if err != nil {
@@ -18,11 +18,11 @@ func ReadStringField(r *bufio.Reader) (string, *StringField, error) {
 	return n, &f, nil
 }
 
-func (f *StringField) Value() string {
+func (f *String) Value() string {
 	return f.value
 }
 
-func (f *StringField) read(r *bufio.Reader) (string, error) {
+func (f *String) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)
 	if err != nil {
 		return "", err

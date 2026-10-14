@@ -47,19 +47,19 @@ func readElement(r *bufio.Reader) (Element, error) {
 func readElementField(element Element, r *bufio.Reader) (string, Field, error) {
 	switch element {
 	case ElementDouble:
-		return ReadDoubleField(r)
+		return readDouble(r)
 	case ElementString:
-		return ReadStringField(r)
+		return readString(r)
 	case ElementDocument:
-		return ReadDocumentField(r)
+		return readDocument(r)
 	case ElementArray:
-		return ReadArrayField(r)
+		return readArray(r)
 	case ElementBool:
-		return ReadBoolield(r)
+		return readBool(r)
 	case ElementInt32:
-		return ReadInt32Field(r)
+		return readInt32(r)
 	case ElementInt64:
-		return ReadInt64Field(r)
+		return readInt64(r)
 	case ElementNone:
 		return "", nil, io.EOF
 	default:

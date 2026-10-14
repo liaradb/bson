@@ -6,13 +6,13 @@ import (
 	"io"
 )
 
-type Int32Field struct {
+type Int32 struct {
 	field
 	value int32
 }
 
-func ReadInt32Field(r *bufio.Reader) (string, *Int32Field, error) {
-	f := Int32Field{}
+func readInt32(r *bufio.Reader) (string, *Int32, error) {
+	f := Int32{}
 
 	n, err := f.read(r)
 	if err != nil {
@@ -22,11 +22,11 @@ func ReadInt32Field(r *bufio.Reader) (string, *Int32Field, error) {
 	return n, &f, nil
 }
 
-func (f *Int32Field) Value() int32 {
+func (f *Int32) Value() int32 {
 	return f.value
 }
 
-func (f *Int32Field) read(r *bufio.Reader) (string, error) {
+func (f *Int32) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)
 	if err != nil {
 		return "", err
@@ -41,7 +41,7 @@ func (f *Int32Field) read(r *bufio.Reader) (string, error) {
 	return n, nil
 }
 
-func (*Int32Field) readInt32(r io.Reader) (int32, error) {
+func (*Int32) readInt32(r io.Reader) (int32, error) {
 	var data [4]byte
 	_, err := r.Read(data[:])
 	return int32(binary.LittleEndian.Uint32(data[:])), err

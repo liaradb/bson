@@ -12,7 +12,7 @@ type Document struct {
 	fields map[string]Field
 }
 
-func ReadDocumentField(r *bufio.Reader) (string, *Document, error) {
+func readDocument(r *bufio.Reader) (string, *Document, error) {
 	d := Document{}
 	n, err := d.readName(r)
 	if err != nil {

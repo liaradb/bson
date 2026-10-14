@@ -26,7 +26,7 @@ func TestDocumentReader(t *testing.T) {
 			t.Errorf("incorrect name: %v", n)
 		}
 		switch f := f.(type) {
-		case *StringField:
+		case *String:
 			if v := f.Value(); v != "world" {
 				t.Errorf("incorrect value: %v", v)
 			}

@@ -12,7 +12,7 @@ type Array struct {
 	elements []Field
 }
 
-func ReadArrayField(r *bufio.Reader) (string, *Array, error) {
+func readArray(r *bufio.Reader) (string, *Array, error) {
 	a := Array{}
 	n, err := a.readName(r)
 	if err != nil {

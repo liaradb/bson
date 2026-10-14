@@ -7,13 +7,13 @@ import (
 	"math"
 )
 
-type DoubleField struct {
+type Double struct {
 	field
 	value float64
 }
 
-func ReadDoubleField(r *bufio.Reader) (string, *DoubleField, error) {
-	f := DoubleField{}
+func readDouble(r *bufio.Reader) (string, *Double, error) {
+	f := Double{}
 
 	n, err := f.read(r)
 	if err != nil {
@@ -23,11 +23,11 @@ func ReadDoubleField(r *bufio.Reader) (string, *DoubleField, error) {
 	return n, &f, nil
 }
 
-func (f *DoubleField) Value() float64 {
+func (f *Double) Value() float64 {
 	return f.value
 }
 
-func (f *DoubleField) read(r *bufio.Reader) (string, error) {
+func (f *Double) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)
 	if err != nil {
 		return "", err
@@ -42,7 +42,7 @@ func (f *DoubleField) read(r *bufio.Reader) (string, error) {
 	return n, nil
 }
 
-func (*DoubleField) readDouble(r io.Reader) (float64, error) {
+func (*Double) readDouble(r io.Reader) (float64, error) {
 	var data [8]byte
 	if _, err := r.Read(data[:]); err != nil {
 		return 0, err
