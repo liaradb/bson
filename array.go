@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"io"
 	"iter"
+	"strconv"
 )
 
 type Array struct {
@@ -58,5 +59,35 @@ func (a *Array) Fields() iter.Seq2[int, Field] {
 				return
 			}
 		}
+	}
+}
+
+func (a *Array) Get(n int) (Field, bool) {
+	if n >= len(a.elements) {
+		return nil, false
+	}
+
+	return a.elements[n], true
+}
+
+func (a *Array) getField(names []string) (Field, bool) {
+	if len(names) == 0 {
+		return nil, false
+	}
+
+	n, err := strconv.Atoi(names[0])
+	if err != nil {
+		return nil, false
+	}
+
+	f := a.elements[n]
+
+	switch f := f.(type) {
+	case *Document:
+		return f.getField(names[1:])
+	case *Array:
+		return f.getField(names[1:])
+	default:
+		return f, true
 	}
 }

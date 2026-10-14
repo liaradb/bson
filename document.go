@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io"
 	"iter"
+	"strings"
 )
 
 var (
@@ -72,5 +73,30 @@ func (d *Document) Fields() iter.Seq2[string, Field] {
 				return
 			}
 		}
+	}
+}
+
+func (d *Document) Get(n string) (Field, bool) {
+	names := strings.Split(n, ".")
+	return d.getField(names)
+}
+
+func (d *Document) getField(names []string) (Field, bool) {
+	if len(names) == 0 {
+		return nil, false
+	}
+
+	f, ok := d.fields[names[0]]
+	if !ok {
+		return nil, false
+	}
+
+	switch f := f.(type) {
+	case *Document:
+		return f.getField(names[1:])
+	case *Array:
+		return f.getField(names[1:])
+	default:
+		return f, true
 	}
 }
