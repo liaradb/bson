@@ -35,12 +35,7 @@ func (d *Document) read(r *bufio.Reader) error {
 	fields := make(map[string]Field)
 
 	for err != io.EOF {
-		t, err := d.parseType(r)
-		if err != nil {
-			return err
-		}
-
-		n, f, err := d.parseField(t, r)
+		n, f, err := readField(r)
 		if err != nil {
 			if err == io.EOF {
 				break
@@ -54,35 +49,6 @@ func (d *Document) read(r *bufio.Reader) error {
 	d.size = size
 	d.fields = fields
 	return nil
-}
-
-func (d *Document) parseType(r *bufio.Reader) (Element, error) {
-	var data [1]byte
-	_, err := r.Read(data[:])
-	return Element(data[0]), err
-}
-
-func (d *Document) parseField(element Element, r *bufio.Reader) (string, Field, error) {
-	switch element {
-	case ElementDouble:
-		return ReadDoubleField(r)
-	case ElementString:
-		return ReadStringField(r)
-	case ElementDocument:
-		return ReadDocumentField(r)
-	case ElementArray:
-		return ReadDocumentField(r)
-	case ElementBool:
-		return ReadBoolield(r)
-	case ElementInt32:
-		return ReadInt32Field(r)
-	case ElementInt64:
-		return ReadInt64Field(r)
-	case ElementNone:
-		return "", nil, io.EOF
-	default:
-		return "", nil, ErrUnknownElement
-	}
 }
 
 func (d *Document) Fields() iter.Seq2[string, Field] {
