@@ -23,9 +23,8 @@ func readTimestamp(r *bufio.Reader) (string, *Timestamp, error) {
 	return n, &f, nil
 }
 
-func (f *Timestamp) Value() (uint32, uint32) {
-	return f.counter, f.timestamp
-}
+func (f *Timestamp) Value() (uint32, uint32) { return f.counter, f.timestamp }
+func (*Timestamp) Size() int                 { return 8 }
 
 func (f *Timestamp) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)

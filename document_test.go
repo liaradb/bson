@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestDocumentReader(t *testing.T) {
+func TestDocument(t *testing.T) {
 	t.Parallel()
 
 	d, err := Read(bytes.NewBuffer(merge(
@@ -37,7 +37,7 @@ func TestDocumentReader(t *testing.T) {
 	}
 }
 
-func TestDocumentReader_Document(t *testing.T) {
+func TestDocument_Read(t *testing.T) {
 	t.Parallel()
 
 	d, err := Read(bytes.NewBuffer(merge(

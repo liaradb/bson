@@ -18,9 +18,8 @@ func readBinary(r *bufio.Reader) (string, *Binary, error) {
 	return n, &f, nil
 }
 
-func (f *Binary) Value() []byte {
-	return f.value
-}
+func (f *Binary) Value() []byte { return f.value }
+func (f *Binary) Size() int     { return len(f.value) + 1 }
 
 func (f *Binary) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)

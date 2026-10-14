@@ -18,9 +18,8 @@ func readSymbol(r *bufio.Reader) (string, *Symbol, error) {
 	return n, &f, nil
 }
 
-func (f *Symbol) Value() string {
-	return f.value
-}
+func (f *Symbol) Value() string { return f.value }
+func (f *Symbol) Size() int     { return len(f.value) + 1 }
 
 func (f *Symbol) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)

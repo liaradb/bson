@@ -23,9 +23,8 @@ func readDouble(r *bufio.Reader) (string, *Double, error) {
 	return n, &f, nil
 }
 
-func (f *Double) Value() float64 {
-	return f.value
-}
+func (f *Double) Value() float64 { return f.value }
+func (*Double) Size() int        { return 8 }
 
 func (f *Double) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)

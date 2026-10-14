@@ -16,3 +16,5 @@ func readNull(r *bufio.Reader) (string, *Null, error) {
 
 	return n, &f, nil
 }
+
+func (*Null) Size() int { return 0 }

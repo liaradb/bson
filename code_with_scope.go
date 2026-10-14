@@ -18,9 +18,8 @@ func readCodeWithScope(r *bufio.Reader) (string, *CodeWithScope, error) {
 	return n, &f, nil
 }
 
-func (f *CodeWithScope) Value() string {
-	return f.value
-}
+func (f *CodeWithScope) Value() string { return f.value }
+func (f *CodeWithScope) Size() int     { return len(f.value) + 1 }
 
 func (f *CodeWithScope) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)

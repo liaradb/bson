@@ -21,9 +21,8 @@ func readBool(r *bufio.Reader) (string, *Bool, error) {
 	return n, &f, nil
 }
 
-func (f *Bool) Value() bool {
-	return f.value
-}
+func (f *Bool) Value() bool { return f.value }
+func (*Bool) Size() int     { return 1 }
 
 func (f *Bool) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)

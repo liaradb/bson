@@ -22,9 +22,8 @@ func readInt64(r *bufio.Reader) (string, *Int64, error) {
 	return n, &f, nil
 }
 
-func (f *Int64) Value() int64 {
-	return f.value
-}
+func (f *Int64) Value() int64 { return f.value }
+func (*Int64) Size() int      { return 8 }
 
 func (f *Int64) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)

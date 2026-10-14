@@ -18,9 +18,8 @@ func readString(r *bufio.Reader) (string, *String, error) {
 	return n, &f, nil
 }
 
-func (f *String) Value() string {
-	return f.value
-}
+func (f *String) Value() string { return f.value }
+func (f *String) Size() int     { return len(f.value) + 1 }
 
 func (f *String) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)

@@ -41,6 +41,14 @@ func readDocument(r *bufio.Reader) (string, *Document, error) {
 	return n, &d, nil
 }
 
+func (d *Document) Size() int {
+	size := 0
+	for _, f := range d.fields {
+		size += f.Size()
+	}
+	return size
+}
+
 func (d *Document) read(r *bufio.Reader) error {
 	size, err := d.readSize(r)
 	if err != nil {

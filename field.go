@@ -8,6 +8,7 @@ import (
 
 type Field interface {
 	_field()
+	Size() int
 }
 
 type field struct{}

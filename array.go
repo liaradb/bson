@@ -27,6 +27,14 @@ func readArray(r *bufio.Reader) (string, *Array, error) {
 	return n, &a, nil
 }
 
+func (a *Array) Size() int {
+	size := 0
+	for _, f := range a.elements {
+		size += f.Size()
+	}
+	return size
+}
+
 func (a *Array) read(r *bufio.Reader) error {
 	size, err := a.readSize(r)
 	if err != nil {

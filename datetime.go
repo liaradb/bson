@@ -23,9 +23,8 @@ func readDatetime(r *bufio.Reader) (string, *Datetime, error) {
 	return n, &f, nil
 }
 
-func (f *Datetime) Value() time.Time {
-	return f.value
-}
+func (f *Datetime) Value() time.Time { return f.value }
+func (*Datetime) Size() int          { return 8 }
 
 func (f *Datetime) read(r *bufio.Reader) (string, error) {
 	n, err := f.readName(r)
