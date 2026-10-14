@@ -49,9 +49,9 @@ func (e Element) readField(r *bufio.Reader) (string, Field, error) {
 	case ElementArray:
 		return readArray(r)
 	case ElementBinary:
-		return "", nil, ErrUnknownElement
+		return readBinary(r)
 	case ElementUndefined:
-		return "", nil, ErrUnknownElement
+		return readNull(r)
 	case ElementObjectID:
 		return "", nil, ErrUnknownElement
 	case ElementBool:
@@ -59,7 +59,7 @@ func (e Element) readField(r *bufio.Reader) (string, Field, error) {
 	case ElementDatetime:
 		return readDatetime(r)
 	case ElementNull:
-		return "", nil, ErrUnknownElement
+		return readNull(r)
 	case ElementRegExp:
 		return "", nil, ErrUnknownElement
 	case ElementDBPointer:
@@ -73,7 +73,7 @@ func (e Element) readField(r *bufio.Reader) (string, Field, error) {
 	case ElementInt32:
 		return readInt32(r)
 	case ElementTimestamp:
-		return "", nil, ErrUnknownElement
+		return readTimestamp(r)
 	case ElementInt64:
 		return readInt64(r)
 	case ElementDecimal128:
