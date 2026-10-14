@@ -56,6 +56,8 @@ func readElementField(element Element, r *bufio.Reader) (string, Field, error) {
 		return readArray(r)
 	case ElementBool:
 		return readBool(r)
+	case ElementDateTime:
+		return readDatetime(r)
 	case ElementInt32:
 		return readInt32(r)
 	case ElementInt64:
