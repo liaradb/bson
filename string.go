@@ -11,6 +11,12 @@ type String struct {
 	value string
 }
 
+func NewString(v string) *String {
+	return &String{
+		value: v,
+	}
+}
+
 func readString(r *bufio.Reader) (string, *String, error) {
 	f := String{}
 

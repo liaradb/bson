@@ -15,7 +15,15 @@ var (
 type Document struct {
 	field
 	size   uint32
-	fields map[string]Field
+	fields Fields
+}
+
+type Fields map[string]Field
+
+func NewDocument(f Fields) *Document {
+	return &Document{
+		fields: f,
+	}
 }
 
 func Read(r io.Reader) (*Document, error) {
@@ -84,7 +92,19 @@ func (d *Document) Fields() iter.Seq2[string, Field] {
 	}
 }
 
-func (d *Document) Get(n string) (Field, bool) {
+func (d *Document) Get[T Field](n string) (T, bool) {
+	names := strings.Split(n, ".")
+	f, ok := d.getField(names)
+	if !ok {
+		var t T
+		return t, false
+	}
+
+	t, ok := f.(T)
+	return t, ok
+}
+
+func (d *Document) GetField(n string) (Field, bool) {
 	names := strings.Split(n, ".")
 	return d.getField(names)
 }
@@ -107,4 +127,12 @@ func (d *Document) getField(names []string) (Field, bool) {
 	default:
 		return f, true
 	}
+}
+
+func (d *Document) Set(name string, value Field) {
+	if d.fields == nil {
+		d.fields = make(map[string]Field)
+	}
+
+	d.fields[name] = value
 }

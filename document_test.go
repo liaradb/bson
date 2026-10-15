@@ -69,3 +69,17 @@ func merge(b ...[]byte) []byte {
 func stringSlice(s string) []byte {
 	return append([]byte(s), 0)
 }
+
+func TestDocument_Get(t *testing.T) {
+	d := NewDocument(Fields{
+		"inner": NewDocument(Fields{
+			"value": NewString("abc"),
+		}),
+	})
+
+	if f, ok := d.Get[*String]("inner.value"); !ok {
+		t.Error("should get field")
+	} else if v := f.Value(); v != "abc" {
+		t.Errorf("incorrect value: %v, expected: %v", v, "abc")
+	}
+}
