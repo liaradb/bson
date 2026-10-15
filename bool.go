@@ -2,7 +2,8 @@ package bson
 
 import (
 	"bufio"
-	"io"
+
+	"github.com/liaradb/bson/internal/data"
 )
 
 type Bool struct {
@@ -30,17 +31,11 @@ func (f *Bool) read(r *bufio.Reader) (string, error) {
 		return "", err
 	}
 
-	v, err := f.readBool(r)
+	v, err := data.ReadBool[bool](r)
 	if err != nil {
 		return "", err
 	}
 
 	f.value = v
 	return n, nil
-}
-
-func (*Bool) readBool(r io.Reader) (bool, error) {
-	var data [1]byte
-	_, err := r.Read(data[:])
-	return data[0] != 0, err
 }

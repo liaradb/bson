@@ -2,8 +2,8 @@ package bson
 
 import (
 	"bufio"
-	"encoding/binary"
-	"io"
+
+	"github.com/liaradb/bson/internal/data"
 )
 
 type Int64 struct {
@@ -31,17 +31,11 @@ func (f *Int64) read(r *bufio.Reader) (string, error) {
 		return "", err
 	}
 
-	v, err := f.readInt64(r)
+	v, err := data.ReadInt64[int64](r)
 	if err != nil {
 		return "", err
 	}
 
 	f.value = v
 	return n, nil
-}
-
-func (*Int64) readInt64(r io.Reader) (int64, error) {
-	var data [8]byte
-	_, err := r.Read(data[:])
-	return int64(binary.LittleEndian.Uint64(data[:])), err
 }

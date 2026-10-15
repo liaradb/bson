@@ -1,6 +1,10 @@
 package bson
 
-import "bufio"
+import (
+	"bufio"
+
+	"github.com/liaradb/bson/internal/data"
+)
 
 type String struct {
 	field
@@ -27,24 +31,15 @@ func (f *String) read(r *bufio.Reader) (string, error) {
 		return "", err
 	}
 
-	if _, err := f.readSize(r); err != nil {
+	if _, err := data.ReadInt32[uint32](r); err != nil {
 		return "", err
 	}
 
-	v, err := f.readString(r)
+	v, err := data.ReadString(r)
 	if err != nil {
 		return "", err
 	}
 
 	f.value = v
 	return n, nil
-}
-
-func (*String) readString(r *bufio.Reader) (string, error) {
-	v, err := r.ReadBytes(0)
-	if err != nil {
-		return "", err
-	}
-
-	return string(v[:len(v)-1]), nil
 }

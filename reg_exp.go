@@ -1,6 +1,10 @@
 package bson
 
-import "bufio"
+import (
+	"bufio"
+
+	"github.com/liaradb/bson/internal/data"
+)
 
 type RegExp struct {
 	field
@@ -32,12 +36,12 @@ func (f *RegExp) read(r *bufio.Reader) (string, error) {
 		return "", err
 	}
 
-	p, err := f.readString(r)
+	p, err := data.ReadString(r)
 	if err != nil {
 		return "", err
 	}
 
-	o, err := f.readString(r)
+	o, err := data.ReadString(r)
 	if err != nil {
 		return "", err
 	}
@@ -45,13 +49,4 @@ func (f *RegExp) read(r *bufio.Reader) (string, error) {
 	f.pattern = p
 	f.options = o
 	return n, nil
-}
-
-func (*RegExp) readString(r *bufio.Reader) (string, error) {
-	v, err := r.ReadBytes(0)
-	if err != nil {
-		return "", err
-	}
-
-	return string(v[:len(v)-1]), nil
 }

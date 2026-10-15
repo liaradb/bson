@@ -2,9 +2,8 @@ package bson
 
 import (
 	"bufio"
-	"encoding/binary"
-	"io"
-	"math"
+
+	"github.com/liaradb/bson/internal/data"
 )
 
 type Double struct {
@@ -32,20 +31,11 @@ func (f *Double) read(r *bufio.Reader) (string, error) {
 		return "", err
 	}
 
-	v, err := f.readDouble(r)
+	v, err := data.ReadFloat64[float64](r)
 	if err != nil {
 		return "", err
 	}
 
 	f.value = v
 	return n, nil
-}
-
-func (*Double) readDouble(r io.Reader) (float64, error) {
-	var data [8]byte
-	if _, err := r.Read(data[:]); err != nil {
-		return 0, err
-	}
-
-	return math.Float64frombits(binary.LittleEndian.Uint64(data[:])), nil
 }
